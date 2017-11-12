@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #ffb366; -fx-border-color: black;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Menus.MainViewController">
+    <children>
+      <Pane layoutX="59.0" layoutY="69.0" prefHeight="496.0" prefWidth="679.0" style="-fx-background-color: white; -fx-border-color: black;" />
+        <JFXHamburger fx:id="hamburger" layoutX="14.0" layoutY="20.0" prefHeight="27.0" prefWidth="33.0" />
+      <Text fontSmoothingType="LCD" layoutX="71.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CryptoHelper Mock">
+         <font>
+            <Font name="Eras Demi ITC" size="19.0" />
+         </font>
+      </Text>
+        <JFXDrawer fx:id="drawer" defaultDrawerSize="300.0" layoutX="60.0" layoutY="69.0" prefHeight="392.0" prefWidth="168.0" />
+    </children>
+</AnchorPane>
