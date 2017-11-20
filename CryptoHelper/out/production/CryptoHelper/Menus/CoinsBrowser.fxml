@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="coinbrowserpane" prefHeight="726.0" prefWidth="1105.0" style="-fx-background-color: #ffb366;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Menus.CoinsBrowserController">
+   <children>
+      <JFXListView prefHeight="732.0" prefWidth="235.0" />
+      <ScrollPane layoutX="282.0" prefHeight="732.0" prefWidth="808.0" />
+   </children>
+</AnchorPane>
