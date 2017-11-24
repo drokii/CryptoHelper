@@ -1,27 +1,38 @@
 package Network;
 
+import CoinServer.Coin;
+import Shared.ICoin;
+import Shared.IRemoteWallet;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
 import com.esotericsoftware.kryonet.rmi.ObjectSpace;
 
 public class NetworkCoin {
-
+    static public final short WALLET = 5;
     private static Kryo kryo;
 
     static public void register (EndPoint endPoint) {
         kryo = endPoint.getKryo();
 
-        // This must be called in order to use ObjectSpaces.
         ObjectSpace.registerClasses(kryo);
-        ObjectSpace objectSpace = new ObjectSpace();
+        //Interfaces must be registered
+        kryo.register(ICoin.class);
+        kryo.register(IRemoteWallet.class);
+        //Object values must be registered
+        kryo.register(int.class);
+        kryo.register(double.class);
+        kryo.register(String.class);
 
-        // The interfaces that will be used as remote objects must be registered.
+        //Requests
+        kryo.register(CoinRequest.class);
+        kryo.register(CoinRefreshRequest.class);
 
-
-        // The classes of all method parameters and return values
-        // for remote objects must also be registered.
-        kryo.register(String[].class);
     }
 
+    static public class CoinRequest{
 
+    }
+    static public class CoinRefreshRequest{
+
+    }
 }

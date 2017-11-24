@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 
-public class Coin {
+public class Coin implements Serializable {
 
     @SerializedName("MarketName") private String marketName;
     @SerializedName("High") private Double high;

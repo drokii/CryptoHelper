@@ -1,36 +1,46 @@
 package CoinServer;
 
+import Network.NetworkCoin;
+import com.esotericsoftware.kryonet.Connection;
+import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
-import com.google.gson.Gson;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class CoinServer {
 
-    public static void main(String[] args) throws IOException {
-        Server server = new Server();
-        server.start();
-        server.bind(54555, 54777);
+    RemoteWallet wallet =null;
 
+    private CoinServer() throws IOException {
+        Server server = new Server();
+        server.bind(54555, 54777);
+        server.start();
+        NetworkCoin.register(server);
+        assignListeners(server);
+        wallet = new RemoteWallet();
     }
 
-    private static void assignListeners(Server server) {
-//        server.addListener(new Listener() {
-//         public void received (Connection connection, Object object) {
-//               if (object instanceof SampleRequest) {
-//                  SampleRequest request = (SampleRequest)object;
-//                  System.out.println(request.text);
-//
-//                  SampleResponse response = new SampleResponse();
-//                  System.out.println(response.text);
-//                       connection.sendTCP(response);
-//               }
-//            }
-//         });
+    public static void main(String[] args) throws IOException {
+        new CoinServer();
+    }
+
+    private void assignListeners(Server server) {
+        server.addListener(new Listener() {
+            @Override
+            public void connected(Connection connection) {
+
+                System.out.println("A client is connected: " + connection.getID());
+            }
+
+            @Override
+            public void received(Connection connection, Object object) {
+                if (object instanceof NetworkCoin.CoinRequest) {
+
+                    System.out.println("Coins requested by " + connection.getID());
+
+                }
+            }
+        });
     }
 
 
