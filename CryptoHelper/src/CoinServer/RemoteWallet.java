@@ -16,7 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-public class RemoteWallet extends Connection implements IRemoteWallet {
+public class RemoteWallet implements IRemoteWallet {
 
     private void setCoins(List<Coin> coins) {
         this.coins = coins;
@@ -30,24 +30,24 @@ public class RemoteWallet extends Connection implements IRemoteWallet {
     }
 
     public RemoteWallet() throws IOException {
-            //Registers object in objectspace in network at creation time
-            new ObjectSpace(this).register(NetworkCoin.WALLET,this);
-
-            String json = APICall("https://bittrex.com/api/v1.1/public/getmarketsummaries");
-
-            Gson g = new Gson();
-            Type listType = new TypeToken<List<Coin>>() {}.getType();
-            this.setCoins(g.fromJson(json, listType));
-
-            if (this.getCoin() != null) {
-                System.out.println("API GET Request succesful");
-            } else {
-                System.out.println("Request failed. Check internet connection or API server status.");
-            }
-
+        fillWallet();
     }
 
-    private static String APICall(String link) throws IOException {
+    private void fillWallet() throws IOException {
+        String json = APICall("https://bittrex.com/api/v1.1/public/getmarketsummaries");
+
+        Gson g = new Gson();
+        Type listType = new TypeToken<List<Coin>>() {}.getType();
+        this.setCoins(g.fromJson(json, listType));
+
+        if (this.getCoin() != null) {
+            System.out.println("API GET Request succesful");
+        } else {
+            System.out.println("Request failed. Check internet connection or API server status.");
+        }
+    }
+
+    private String APICall(String link) throws IOException {
 
         URL url = new URL(link);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
