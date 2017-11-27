@@ -8,19 +8,22 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.rmi.ObjectSpace;
 import com.esotericsoftware.kryonet.rmi.RemoteObject;
-import org.omg.CORBA.IRObject;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
-public class CryptoHelperClient {
+public class CoinGetterClient {
 
     IRemoteWallet wallet;
-    List<Coin> coins = null;
+    private List<Coin> coins = null;
+
+    public List<Coin> getCoins() {
+        return coins;
+    }
+
     Client client;
 
-    private CryptoHelperClient() {
+    private CoinGetterClient() {
         client = new Client(1000000,1000000);
         client.start();
         NetworkCoin.register(client);
@@ -54,7 +57,7 @@ public class CryptoHelperClient {
 
     }
     public static void main(String[] args) throws IOException {
-        new CryptoHelperClient();
+        new CoinGetterClient();
 
     }
 }

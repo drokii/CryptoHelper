@@ -62,14 +62,14 @@ public class MainViewController implements Initializable {
         mainscrollpane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         // Assign sidebar UI to drawer
         try {
-            VBox box = FXMLLoader.load(getClass().getResource("SideBarContent.fxml"));
+            VBox box = FXMLLoader.load(getClass().getResource("fxml/SideBarContent.fxml"));
             drawer.setSidePane(box);
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         // Load home screen
         try {
-            AnchorPane coinbrowser = FXMLLoader.load(getClass().getResource("CoinsBrowser.fxml"));
+            AnchorPane coinbrowser = FXMLLoader.load(getClass().getResource("fxml/CoinsBrowser.fxml"));
             mainscrollpane.setContent(coinbrowser);
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);

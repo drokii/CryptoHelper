@@ -20,7 +20,6 @@ public class Coin implements Serializable {
     @SerializedName("OpenSellOrders")private Integer openSellOrders;
     @SerializedName("PrevDay")private Double prevDay;
     @SerializedName("Created")private String created;
-    @SerializedName("DisplayMarketName")private Object displayMarketName;
 
     public Coin() {
     }
@@ -77,9 +76,6 @@ public class Coin implements Serializable {
         return created;
     }
 
-    public Object getDisplayMarketName() {
-        return displayMarketName;
-    }
 
 
 }
