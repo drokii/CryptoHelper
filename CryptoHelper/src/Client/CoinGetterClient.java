@@ -2,7 +2,7 @@ package Client;
 
 import CoinServer.Coin;
 import Network.NetworkCoin;
-import Shared.IRemoteWallet;
+import Shared.IWallet;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class CoinGetterClient {
 
-    IRemoteWallet wallet;
+    IWallet wallet;
     private List<Coin> coins = null;
 
     public List<Coin> getCoins() {
@@ -45,7 +45,7 @@ public class CoinGetterClient {
         client.addListener(new Listener.ThreadedListener(new Listener() {
             @Override
             public void connected(Connection connection) {
-                wallet = ObjectSpace.getRemoteObject(connection, NetworkCoin.WALLET, IRemoteWallet.class);
+                wallet = ObjectSpace.getRemoteObject(connection, NetworkCoin.WALLET, IWallet.class);
                 ((RemoteObject) wallet).setNonBlocking(false);
                 coins = wallet.getCoin();
             }

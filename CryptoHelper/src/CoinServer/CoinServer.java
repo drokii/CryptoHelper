@@ -1,7 +1,6 @@
 package CoinServer;
 
 import Network.NetworkCoin;
-import Shared.IRemoteWallet;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
@@ -11,7 +10,7 @@ import java.io.IOException;
 
 public class CoinServer {
 
-    RemoteWallet wallet = null;
+    Wallet wallet = null;
     ObjectSpace objectSpace;
 
     private CoinServer() throws IOException {
@@ -21,7 +20,7 @@ public class CoinServer {
         assignListeners(server);
 
         // Register remote wallet.
-        wallet = new RemoteWallet();
+        wallet = new Wallet();
         objectSpace = new ObjectSpace();
         objectSpace.register(NetworkCoin.WALLET, wallet);
 
