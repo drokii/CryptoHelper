@@ -1,7 +1,7 @@
 package Network;
 
 import CoinServer.Coin;
-import Shared.IRemoteWallet;
+import Shared.IWallet;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
 import com.esotericsoftware.kryonet.rmi.ObjectSpace;
@@ -17,7 +17,7 @@ public class NetworkCoin {
 
         ObjectSpace.registerClasses(kryo);
         //Interfaces must be registered
-        kryo.register(IRemoteWallet.class);
+        kryo.register(IWallet.class);
         //Object values must be registered
         kryo.register(int.class);
         kryo.register(double.class);

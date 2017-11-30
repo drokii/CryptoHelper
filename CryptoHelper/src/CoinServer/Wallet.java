@@ -1,9 +1,6 @@
 package CoinServer;
 
-import Network.NetworkCoin;
-import Shared.IRemoteWallet;
-import com.esotericsoftware.kryonet.Connection;
-import com.esotericsoftware.kryonet.rmi.ObjectSpace;
+import Shared.IWallet;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
@@ -16,7 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-public class RemoteWallet implements IRemoteWallet {
+public class Wallet implements IWallet {
 
     private void setCoins(List<Coin> coins) {
         this.coins = coins;
@@ -29,7 +26,7 @@ public class RemoteWallet implements IRemoteWallet {
         return coins;
     }
 
-    public RemoteWallet() throws IOException {
+    public Wallet() throws IOException {
         fillWallet();
     }
 
@@ -81,7 +78,7 @@ public class RemoteWallet implements IRemoteWallet {
         String json = APICall("https://bittrex.com/api/v1.1/public/getmarketsummaries");
 
         Gson g = new Gson();
-        this.setCoins(g.fromJson(json, RemoteWallet.class).getCoin());
+        this.setCoins(g.fromJson(json, CoinServer.Wallet.class).getCoin());
     }
 }
 
