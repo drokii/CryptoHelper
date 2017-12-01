@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class CoinServer {
 
-    Wallet wallet = null;
+    CoinRetriever wallet = null;
     ObjectSpace objectSpace;
 
     private CoinServer() throws IOException {
@@ -20,9 +20,9 @@ public class CoinServer {
         assignListeners(server);
 
         // Register remote wallet.
-        wallet = new Wallet();
+        wallet = new CoinRetriever();
         objectSpace = new ObjectSpace();
-        objectSpace.register(NetworkCoin.WALLET, wallet);
+        objectSpace.register(NetworkCoin.COINRETRIEVER, wallet);
 
 
         server.start();
@@ -44,18 +44,17 @@ public class CoinServer {
 
             @Override
             public void received(Connection connection, Object object) {
-                if (object instanceof NetworkCoin.CoinRequest) {
 
-                    System.out.println("Coins requested by " + connection.getRemoteAddressTCP());
-
-                }
             }
 
             @Override
             public void disconnected(Connection connection) {
                 objectSpace.removeConnection(connection);
             }
+
+
         });
+
     }
 
 

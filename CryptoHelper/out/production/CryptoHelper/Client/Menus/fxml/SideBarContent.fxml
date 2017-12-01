@@ -10,7 +10,7 @@
     <children>
         <ImageView fitHeight="120.0" fitWidth="226.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@logo.PNG" />
+                <Image url="@../logo.PNG" />
             </image>
          <effect>
             <Blend mode="DARKEN" />

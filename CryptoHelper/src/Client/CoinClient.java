@@ -2,7 +2,7 @@ package Client;
 
 import CoinServer.Coin;
 import Network.NetworkCoin;
-import Shared.IWallet;
+import Shared.ICoinRetriever;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
@@ -12,9 +12,9 @@ import com.esotericsoftware.kryonet.rmi.RemoteObject;
 import java.io.IOException;
 import java.util.List;
 
-public class CoinGetterClient {
+public class CoinClient {
 
-    IWallet wallet;
+    ICoinRetriever coinRetriever;
     private List<Coin> coins = null;
 
     public List<Coin> getCoins() {
@@ -23,7 +23,7 @@ public class CoinGetterClient {
 
     Client client;
 
-    private CoinGetterClient() {
+    private CoinClient() {
         client = new Client(1000000,1000000);
         client.start();
         NetworkCoin.register(client);
@@ -45,9 +45,9 @@ public class CoinGetterClient {
         client.addListener(new Listener.ThreadedListener(new Listener() {
             @Override
             public void connected(Connection connection) {
-                wallet = ObjectSpace.getRemoteObject(connection, NetworkCoin.WALLET, IWallet.class);
-                ((RemoteObject) wallet).setNonBlocking(false);
-                coins = wallet.getCoin();
+                coinRetriever = ObjectSpace.getRemoteObject(connection, NetworkCoin.COINRETRIEVER, ICoinRetriever.class);
+                ((RemoteObject) coinRetriever).setNonBlocking(false);
+                coins = coinRetriever.getCoin();
             }
 
             public void received(Connection connection, Object object) {
@@ -57,7 +57,7 @@ public class CoinGetterClient {
 
     }
     public static void main(String[] args) throws IOException {
-        new CoinGetterClient();
+        new CoinClient();
 
     }
 }

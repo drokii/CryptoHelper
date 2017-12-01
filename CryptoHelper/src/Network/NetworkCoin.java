@@ -1,7 +1,7 @@
 package Network;
 
 import CoinServer.Coin;
-import Shared.IWallet;
+import Shared.ICoinRetriever;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
 import com.esotericsoftware.kryonet.rmi.ObjectSpace;
@@ -9,7 +9,7 @@ import com.esotericsoftware.kryonet.rmi.ObjectSpace;
 import java.util.ArrayList;
 
 public class NetworkCoin {
-    static public final short WALLET = 5;
+    static public final short COINRETRIEVER = 5;
     private static Kryo kryo;
 
     static public void register (EndPoint endPoint) {
@@ -17,7 +17,7 @@ public class NetworkCoin {
 
         ObjectSpace.registerClasses(kryo);
         //Interfaces must be registered
-        kryo.register(IWallet.class);
+        kryo.register(ICoinRetriever.class);
         //Object values must be registered
         kryo.register(int.class);
         kryo.register(double.class);
@@ -25,20 +25,6 @@ public class NetworkCoin {
         kryo.register(ArrayList.class);
         kryo.register(Coin.class);
 
-        //Requests
-        kryo.register(CoinRequest.class);
-        kryo.register(CoinRefreshRequest.class);
 
-    }
-
-    static public class CoinRequest{
-
-        public CoinRequest() {
-        }
-    }
-    static public class CoinRefreshRequest{
-
-        public CoinRefreshRequest() {
-        }
     }
 }
