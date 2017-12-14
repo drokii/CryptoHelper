@@ -1,9 +1,13 @@
 package NewsServer;
 
+import Shared.INewsFeed;
+import Shared.NewsPiece;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsFeed {
+public class NewsFeed implements INewsFeed {
 
     final String title;
     final String link;
@@ -24,9 +28,6 @@ public class NewsFeed {
         this.pubDate = pubDate;
     }
 
-    public List<NewsPiece> getMessages() {
-        return entries;
-    }
 
     public String getTitle() {
         return title;
@@ -59,4 +60,13 @@ public class NewsFeed {
                 + pubDate + ", title=" + title + "]";
     }
 
+    @Override
+    public List<NewsPiece> getNews() {
+        return entries;
+    }
+
+    @Override
+    public void refreshNewsList() {
+        //TODO: Refresh news list
+    }
 }

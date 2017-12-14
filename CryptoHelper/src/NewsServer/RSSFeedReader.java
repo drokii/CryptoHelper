@@ -1,10 +1,11 @@
 package NewsServer;
 
+import Shared.NewsPiece;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.xml.stream.XMLEventReader;
@@ -102,7 +103,7 @@ public class RSSFeedReader {
                         message.setGuid(guid);
                         message.setLink(link);
                         message.setTitle(title);
-                        feed.getMessages().add(message);
+                        feed.getNews().add(message);
                         event = eventReader.nextEvent();
                         continue;
                     }
