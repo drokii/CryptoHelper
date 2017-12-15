@@ -1,4 +1,6 @@
-package NewsServer;
+package Shared;
+
+import Shared.NewsPiece;
 
 import java.util.List;
 

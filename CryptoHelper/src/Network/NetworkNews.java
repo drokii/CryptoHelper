@@ -1,5 +1,7 @@
 package Network;
 
+import Shared.INewsFeed;
+import Shared.NewsPiece;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
 import com.esotericsoftware.kryonet.rmi.ObjectSpace;
@@ -15,7 +17,8 @@ public class NetworkNews {
 
         ObjectSpace.registerClasses(kryo);
         //Interfaces must be registered
-
+        kryo.register(INewsFeed.class);
+        kryo.register(NewsPiece.class);
         //Object values must be registered
         kryo.register(int.class);
         kryo.register(double.class);

@@ -1,4 +1,4 @@
-package NewsServer;
+package Shared;
 
 public class NewsPiece {
 
