@@ -1,18 +1,19 @@
 package DBServer;
 
-import Network.NetworkDatabase;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 
 import java.io.IOException;
 
+import static Network.NetworkDatabase.*;
+
 public class DatabaseServer {
     IDatabaseHelper databaseHelper;
 
     private DatabaseServer() throws IOException {
         Server server = new Server(1000000, 100000);
-        NetworkDatabase.register(server);
+        register(server);
         server.bind(54565);
         assignListeners(server);
         databaseHelper = new DatabaseHelper();
@@ -34,16 +35,30 @@ public class DatabaseServer {
 
             @Override
             public void received(Connection connection, Object object) {
-                if (object instanceof NetworkDatabase.CreateAccountRequest) {
-                    //todo: code to create an account
+                if (object instanceof CreateAccountRequest) {
+                    System.out.println("Recieved Packet");
+                    String name = ((CreateAccountRequest) object).username;
+                    String password = ((CreateAccountRequest) object).password;
+
+                    CreateAccountResponse createAccount = new CreateAccountResponse();
+                    createAccount.success = databaseHelper.createAccount(name, password);
+
+                    if (!databaseHelper.isConnected()) {
+                        createAccount.errorMsg = "Server connection to the database failed.";
+                    }
+                    if (!createAccount.success) {
+                        createAccount.errorMsg = "Account creation failed. Credentials already exist.";
+                    }
+
+                    server.sendToTCP(connection.getID(), createAccount);
                 }
-                if (object instanceof NetworkDatabase.LogInRequest) {
+                if (object instanceof LogInRequest) {
                     //todo: code to log in the user
                 }
-                if (object instanceof NetworkDatabase.RemoveAccountRequest) {
+                if (object instanceof RemoveAccountRequest) {
                     //todo:code to remove user account
                 }
-                if (object instanceof NetworkDatabase.SaveTransactionRequest) {
+                if (object instanceof SaveTransactionRequest) {
                     //todo: code to save a transaction
                 }
             }
@@ -57,4 +72,6 @@ public class DatabaseServer {
         });
 
     }
+
+
 }

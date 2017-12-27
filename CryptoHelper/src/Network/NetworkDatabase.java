@@ -20,6 +20,10 @@ public class NetworkDatabase {
         kryo.register(String[].class);
         kryo.register(String.class);
         kryo.register(boolean.class);
+        kryo.register(CreateAccountRequest.class);
+        kryo.register(CreateAccountResponse.class);
+        kryo.register(LogInRequest.class);
+        kryo.register(LogInResponse.class);
 
     }
 
@@ -29,6 +33,7 @@ public class NetworkDatabase {
     }
 
     public static class CreateAccountResponse {
+        public String errorMsg;
         public boolean success;
     }
 
@@ -38,6 +43,7 @@ public class NetworkDatabase {
     }
 
     public static class LogInResponse {
+        public String errorMsg;
         public String username;
         public String password;
     }
@@ -53,6 +59,7 @@ public class NetworkDatabase {
     }
 
     public static class SaveTransactionResponse{
+        public String errorMsg;
         public boolean success;
     }
 

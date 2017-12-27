@@ -6,22 +6,28 @@ import java.sql.*;
 
 public class DatabaseHelper implements IDatabaseHelper {
 
-    public DatabaseHelper() {
-        connect();
-        createAccount("Pedro", "Test");
-    }
-
     final String CONNECTIONSTRING = "jdbc:mysql://localhost:3306/cryptohelper?user=root";
     private Connection conn;
+    private boolean connected;
+    @Override
+    public boolean isConnected() {
+        return connected;
+    }
+
+    public DatabaseHelper() {
+        connect();
+    }
 
     @Override
     public boolean connect() {
         try {
             conn = DriverManager.getConnection(CONNECTIONSTRING);
             if (conn != null) {
+                connected = true;
                 System.out.println("Connected to the database");
                 return true;
             } else {
+                connected = false;
                 return false;
             }
         } catch (SQLException ex) {
@@ -40,14 +46,14 @@ public class DatabaseHelper implements IDatabaseHelper {
             stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(checkQuery);
             if (rs.isBeforeFirst()) {
-                stmt.executeQuery("update account set loggedin = 1 where username='" + username + "';");
+                stmt.executeUpdate("update account set loggedin = 1 where username='" + username + "';");
                 System.out.println("Login Succesful.");
                 stmt.close();
                 return true;
 
             } else {
                 stmt.close();
-                System.out.println("Failed log in. Credentials do not exist.");
+                System.out.println("Credentials do not exist.");
                 return false;
             }
         } catch (SQLException e) {
@@ -63,7 +69,8 @@ public class DatabaseHelper implements IDatabaseHelper {
         String logOutQuery = "update account set loggedin = 0 where username='" + username + "';";
         try {
             stmt = conn.createStatement();
-            stmt.executeQuery(logOutQuery);
+            stmt.executeUpdate(logOutQuery);
+            System.out.println("Logged off.");
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -100,4 +107,6 @@ public class DatabaseHelper implements IDatabaseHelper {
     public boolean deleteAccount(String username, String password) {
         return false;
     }
+
+
 }
