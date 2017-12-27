@@ -16,7 +16,6 @@ public class CoinClient {
 
     ICoinRetriever coinRetriever;
     private List<Coin> coins = null;
-
     public List<Coin> getCoins() {
         return coins;
     }
