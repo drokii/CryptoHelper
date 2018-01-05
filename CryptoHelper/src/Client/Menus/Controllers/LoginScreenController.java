@@ -27,62 +27,19 @@ public class LoginScreenController {
         pool = Executors.newFixedThreadPool(4);
     }
 
-    private Callable checkLoginStatus() {
-        Callable connectionCheck = new Callable() {
-            @Override
-            public Integer call() throws InterruptedException {
-
-                int max = 10000;
-
-
-                for (int i = 0; i < max; i++) {
-                    int oldvalue = connectionStatus;
-                    int newvalue = dbClient.getConnectionStatus();
-
-                    if (oldvalue != newvalue) {
-                        connectionStatus = newvalue;
-                        System.out.println("Change Found!");
-                        return newvalue;
-                    }
-
-                }
-                return null;
-            }
-        };
-        return connectionCheck;
-    }
 
     @FXML
     private void logIn(ActionEvent actionEvent) throws InterruptedException, ExecutionException {
-
-        Future<Integer> f1 = pool.submit(checkLoginStatus());
-        dbClient.logIn(usertextfield.getText(), passwordtextfield.getText());
-        Integer callableResult = f1.get();
-
-        switch (callableResult) {
-            case 1:
-                try {
-                    logInSuccess();
-                } catch (IOException e) {
-                    logInNoConnection();
-                }
-                break;
-            case 2:
-                logInNoConnection();
-                break;
-            case -1:
-                logInFail();
-        }
-
-
+        int i = dbClient.logIn(usertextfield.getText(),passwordtextfield.getText());
     }
 
-    private void logInSuccess() throws IOException {
+
+    private void goodLoginProceed() throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("Client/Menus/fxml/PortfolioView.fxml"));
         viewController.setScene(parent);
     }
 
-    private void logInFail() {
+    private void badPasswordDialog() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error Dialog");
         alert.setHeaderText("Wrong Password");
@@ -90,7 +47,7 @@ public class LoginScreenController {
         alert.showAndWait();
     }
 
-    private void logInNoConnection() {
+    private void badConnectionDialog() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Warning Dialog");
         alert.setHeaderText("A connection could not be established with the server");
@@ -109,7 +66,7 @@ public class LoginScreenController {
 
     public void setDbClient(DatabaseClient dbClient) {
         this.dbClient = dbClient;
-        connectionStatus = dbClient.getConnectionStatus();
+        connectionStatus = dbClient.getLoginStatus();
     }
 
 

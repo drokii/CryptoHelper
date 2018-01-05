@@ -12,5 +12,6 @@
     <orderEntry type="library" name="com.github.cliftonlabs:json-simple:2.3.0" level="project" />
     <orderEntry type="library" name="com.google.code.gson:gson:2.8.2" level="project" />
     <orderEntry type="library" name="mysql:mysql-connector-java:6.0.6" level="project" />
+    <orderEntry type="library" name="com.google.guava:guava:22.0" level="project" />
   </component>
 </module>
