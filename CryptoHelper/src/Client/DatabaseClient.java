@@ -1,22 +1,35 @@
 package Client;
 
-import Network.NetworkDatabase;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import javafx.beans.property.SimpleIntegerProperty;
 
 import java.io.IOException;
+import java.util.Observer;
 
 import static Network.NetworkDatabase.*;
 
-public class DatabaseClient {
+public class DatabaseClient{
+
     private Client client;
+    private SimpleIntegerProperty sip;
+    private int connectionStatus = 0;
+
+    Observer observer;
+
+    public int getConnectionStatus() {
+        return connectionStatus;
+    }
+
 
     public static void main(String[] args) throws IOException {
         new DatabaseClient();
+
     }
 
     public DatabaseClient() {
+
         client = new Client(1000000, 1000000);
         addListenersToClient();
         client.start();
@@ -27,11 +40,13 @@ public class DatabaseClient {
                 try {
                     client.connect(3000, "localhost", 54565);
                     while (client.isConnected()) {
-                        client.update(5000);
+                        client.update(1000);
+                        if(connectionStatus != 1){
+                            connectionStatus = 0;
+                        }
                     }
                 } catch (IOException ex) {
-                    ex.printStackTrace();
-                    System.exit(1);
+                    connectionStatus = 2;
                 }
             }
         }.start();
@@ -42,23 +57,27 @@ public class DatabaseClient {
         client.addListener(new Listener.ThreadedListener(new Listener() {
             @Override
             public void connected(Connection connection) {
-                CreateAccountRequest createAccount = new CreateAccountRequest ();
-                createAccount.username = "Pedro";
-                createAccount.password = "Test";
-                client.sendTCP(createAccount);
+
             }
 
             public void received(Connection connection, Object object) {
                 if (object instanceof CreateAccountResponse) {
-                    if(((CreateAccountResponse) object).success){
+                    if (((CreateAccountResponse) object).success) {
                         System.out.println("AccountCreated");
-                    } else{
+
+                    } else {
                         System.out.println(((CreateAccountResponse) object).errorMsg);
                     }
+                    //todo: incorporate this with an actual decent reaction
 
                 }
                 if (object instanceof LogInResponse) {
-                    //todo: react to response
+                    if (((LogInResponse) object).success) {
+                        connectionStatus = 1;
+                    } else {
+                        connectionStatus = -1;
+                        System.out.println(((LogInResponse) object).errorMsg);
+                    }
                 }
                 if (object instanceof RemoveAccountResponse) {
                     //todo: react to response
@@ -69,4 +88,12 @@ public class DatabaseClient {
             }
         }));
     }
+
+    public void logIn(String username, String password) {
+        LogInRequest logInRequest = new LogInRequest();
+        logInRequest.username = username;
+        logInRequest.password = password;
+        client.sendTCP(logInRequest);
+    }
+
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Client.Menus.Controllers.LoginScreenController">
+    <TextField fx:id="usertextfield" layoutX="263.0" layoutY="223.0"/>
+    <TextField fx:id="passwordtextfield" layoutX="263.0" layoutY="268.0"/>
+    <Text layoutX="191.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username"/>
+    <Text layoutX="193.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password"/>
+    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="201.0" layoutY="47.0" pickOnBounds="true"
+               preserveRatio="true">
+        <image>
+          <Image url="@../../../../../Diagrams/logo.PNG"/>
+        </image>
+    </ImageView>
+    <Button fx:id="loginbtn" layoutX="277.0" layoutY="328.0" mnemonicParsing="false" onAction="#logIn" text="Log in"/>
+    <Button layoutX="25.0" layoutY="353.0" mnemonicParsing="false" onAction="#createAccount" text="Create Account"/>
+</AnchorPane>

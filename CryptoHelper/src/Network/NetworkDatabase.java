@@ -44,8 +44,7 @@ public class NetworkDatabase {
 
     public static class LogInResponse {
         public String errorMsg;
-        public String username;
-        public String password;
+        public boolean success;
     }
 
     public static class LogOutNotice{

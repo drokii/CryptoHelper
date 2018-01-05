@@ -1,17 +1,27 @@
 
+import Client.DatabaseClient;
+import Client.Menus.Controllers.LoginScreenController;
+import Client.Menus.Controllers.MainViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/Client/Menus/fxml/MainView.fxml"));
-        Scene scene = new Scene(root);
-        primaryStage.setTitle("Hello World");
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Client/Menus/fxml/LoginScreen.fxml"));
+        AnchorPane anchorPane = loader.load();
+        MainViewController mainViewController = new MainViewController(primaryStage);
+        LoginScreenController loginScreenController = loader.getController();
+        loginScreenController.setDbClient(new DatabaseClient());
+
+        Scene scene = new Scene(anchorPane);
+        primaryStage.setTitle("CryptoHelper");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

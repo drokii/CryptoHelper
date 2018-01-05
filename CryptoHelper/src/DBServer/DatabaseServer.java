@@ -36,24 +36,39 @@ public class DatabaseServer {
             @Override
             public void received(Connection connection, Object object) {
                 if (object instanceof CreateAccountRequest) {
-                    System.out.println("Recieved Packet");
+                    System.out.println("Recieved create account request");
                     String name = ((CreateAccountRequest) object).username;
                     String password = ((CreateAccountRequest) object).password;
 
-                    CreateAccountResponse createAccount = new CreateAccountResponse();
-                    createAccount.success = databaseHelper.createAccount(name, password);
+                    CreateAccountResponse response = new CreateAccountResponse();
+                    response.success = databaseHelper.createAccount(name, password);
 
                     if (!databaseHelper.isConnected()) {
-                        createAccount.errorMsg = "Server connection to the database failed.";
+                        response.errorMsg = "Server connection to the database failed.";
                     }
-                    if (!createAccount.success) {
-                        createAccount.errorMsg = "Account creation failed. Credentials already exist.";
+                    if (!response.success) {
+                        response.errorMsg = "Account creation failed. Credentials already exist.";
                     }
 
-                    server.sendToTCP(connection.getID(), createAccount);
+                    server.sendToTCP(connection.getID(), response);
                 }
                 if (object instanceof LogInRequest) {
-                    //todo: code to log in the user
+                    System.out.println("Recieved log in packet");
+                    String name = ((LogInRequest) object).username;
+                    String password = ((LogInRequest) object).password;
+
+                    LogInResponse response = new LogInResponse();
+                    response.success = databaseHelper.logInUser(name, password);
+
+                    if (!databaseHelper.isConnected()) {
+                        response.errorMsg = "Server connection to the database failed.";
+                    }
+                    if(!response.success){
+                        response.errorMsg = "Password is incorrect";
+                    }
+
+                    server.sendToTCP(connection.getID(), response);
+
                 }
                 if (object instanceof RemoveAccountRequest) {
                     //todo:code to remove user account
