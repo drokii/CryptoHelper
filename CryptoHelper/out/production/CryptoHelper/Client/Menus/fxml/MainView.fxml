@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Menus.Controllers.MainViewController">
+   <children>
+      <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-width: 3;">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="176.0" spacing="10.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../logo.PNG" />
+                     </image>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <JFXButton fx:id="goToPortfolioBtn" onAction="#goToPortfolio" prefHeight="34.0" prefWidth="226.0" style="-fx-background-color: #efb134; -fx-border-width: 0.5; -fx-border-color: black;" text="Portfolio">
+                     <font>
+                        <Font name="MT Extra" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="goToCoinsBtn" layoutX="68.0" layoutY="10.0" onAction="#goToCoins" prefHeight="34.0" prefWidth="209.0" style="-fx-background-color: #efb134; -fx-border-width: 0.5; -fx-border-color: black;" text="Coins">
+                     <font>
+                        <Font name="MT Extra" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="goToNewsBtn" layoutX="68.0" layoutY="44.0" onAction="#goToNews" prefHeight="34.0" prefWidth="198.0" style="-fx-background-color: #efb134; -fx-border-width: 0.5; -fx-border-color: black;" text="News">
+                     <font>
+                        <Font name="MT Extra" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                  <JFXButton layoutX="68.0" layoutY="78.0" prefHeight="36.0" prefWidth="201.0" style="-fx-background-color: #efb134; -fx-border-width: 0.5; -fx-border-color: black;" text="Logout">
+                     <font>
+                        <Font name="MT Extra" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="350.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                  <JFXButton layoutX="15.0" layoutY="329.0" prefHeight="34.0" prefWidth="209.0" style="-fx-background-color: #efb134; -fx-border-width: 0.5; -fx-border-color: black;" text="Exit">
+                     <font>
+                        <Font name="MT Extra" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </JFXButton>
+               </children>
+               <HBox.margin>
+                  <Insets left="20.0" top="5.0" />
+               </HBox.margin>
+            </VBox>
+            <FlowPane fx:id="contentPane" prefHeight="800.0" prefWidth="980.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="25.0" left="50.0" right="25.0" top="25.0" />
+               </padding>
+            </FlowPane>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

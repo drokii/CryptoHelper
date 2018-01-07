@@ -3,7 +3,6 @@ package Client;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import com.google.common.eventbus.Subscribe;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
@@ -13,15 +12,18 @@ import java.util.concurrent.Future;
 
 import static Network.NetworkDatabase.*;
 
-public class DatabaseClient{
+public class DatabaseClient {
 
     private Client client;
-    // 0 for not initialized, 1 for logged in, 2 for no internet, -1 for bad login
-    private int loginStatus = 0;
-    public int getLoginStatus() {
-        return loginStatus;
-    }
 
+
+
+    // 0 for not initialized, 1 for logged in, 2 for no internet, -1 for bad login
+    private int responseStatus = 0;
+
+    public int getResponseStatus() {
+        return responseStatus;
+    }
 
     public static void main(String[] args) throws IOException {
         new DatabaseClient();
@@ -43,18 +45,12 @@ public class DatabaseClient{
                         client.update(1000);
                     }
                 } catch (IOException ex) {
-                    loginStatus = 2;
+                    responseStatus = 2;
                 }
             }
         }.start();
 
     }
-
-    @Subscribe
-    public void handleLogin(int event){
-        loginStatus = event;
-    }
-
 
     private void addListenersToClient() {
         client.addListener(new Listener.ThreadedListener(new Listener() {
@@ -62,12 +58,15 @@ public class DatabaseClient{
             public void connected(Connection connection) {
 
             }
+
             public void received(Connection connection, Object object) {
                 if (object instanceof CreateAccountResponse) {
                     if (((CreateAccountResponse) object).success) {
+                        responseStatus = 1;
                         System.out.println("AccountCreated");
 
                     } else {
+                        responseStatus = -1;
                         System.out.println(((CreateAccountResponse) object).errorMsg);
                     }
                     //todo: incorporate this with an actual decent reaction
@@ -76,9 +75,9 @@ public class DatabaseClient{
                 if (object instanceof LogInResponse) {
 
                     if (((LogInResponse) object).success) {
-                        loginStatus = 1;
+                        responseStatus = 1;
                     } else {
-                        loginStatus = -1;
+                        responseStatus = -1;
                         System.out.println(((LogInResponse) object).errorMsg);
                     }
 
@@ -94,6 +93,7 @@ public class DatabaseClient{
     }
 
     public int logIn(String username, String password) throws InterruptedException, ExecutionException {
+
         LogInRequest logInRequest = new LogInRequest();
         logInRequest.username = username;
         logInRequest.password = password;
@@ -106,18 +106,18 @@ public class DatabaseClient{
     }
 
 
-
     public Future<Integer> waitForResponse() throws InterruptedException {
         CompletableFuture<Integer> completableFuture
                 = new CompletableFuture<>();
 
         Executors.newCachedThreadPool().submit(() -> {
-            while(!completableFuture.isDone()) {
+            while (!completableFuture.isDone()) {
                 System.out.println("Calculating...");
 
-                if(loginStatus != 0){
-                    completableFuture.complete(loginStatus);
-                }else{
+                if (responseStatus != 0) {
+                    completableFuture.complete(responseStatus);
+                    responseStatus = 0;
+                } else {
                     Thread.sleep(300);
 
                 }
@@ -128,6 +128,19 @@ public class DatabaseClient{
         });
 
         return completableFuture;
+    }
+
+    public int createAccount(String username, String password) throws InterruptedException, ExecutionException {
+
+        CreateAccountRequest createAccountRequest = new CreateAccountRequest();
+        createAccountRequest.username = username;
+        createAccountRequest.password = password;
+        client.sendTCP(createAccountRequest);
+
+        Future<Integer> waitForResponse = waitForResponse();
+        int i = waitForResponse.get();
+        return i;
+
     }
 
 }

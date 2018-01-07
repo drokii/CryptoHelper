@@ -1,6 +1,7 @@
 package DBServer;
 
 import Shared.Transaction;
+import com.mysql.cj.jdbc.exceptions.CommunicationsException;
 
 import java.sql.*;
 
@@ -30,12 +31,14 @@ public class DatabaseHelper implements IDatabaseHelper {
                 connected = false;
                 return false;
             }
-        } catch (SQLException ex) {
-            System.out.println("An error occurred. Maybe user/password is invalid");
+        } catch (CommunicationsException ex) {
+            System.out.println("Connection to the database failed");
             ex.printStackTrace();
             return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
-
     }
 
     @Override

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="980.0" style="-fx-background-color: white;">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Your Portfolio">
+               <font>
+                  <Font size="78.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Text>
+            <Text layoutX="261.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total value:" textAlignment="CENTER">
+               <font>
+                  <Font size="32.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="100.0" />
+               </VBox.margin>
+            </Text>
+            <TableView prefHeight="206.0" prefWidth="980.0">
+              <columns>
+                <TableColumn prefWidth="103.0" text="Coin" />
+                <TableColumn prefWidth="93.0" text="Amount" />
+                  <TableColumn prefWidth="78.0" text="Value" />
+                  <TableColumn prefWidth="116.0" text="\% of Portfolio" />
+              </columns>
+               <padding>
+                  <Insets left="200.0" right="200.0" />
+               </padding>
+            </TableView>
+         </children>
+      </VBox>
+   </children>
+</FlowPane>

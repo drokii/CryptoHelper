@@ -17,8 +17,11 @@ public class DatabaseServer {
         server.bind(54565);
         assignListeners(server);
         databaseHelper = new DatabaseHelper();
+        if (!databaseHelper.connect()) {
+            System.out.println("Database offline. Exiting.");
+            System.exit(0);
+        }
         server.start();
-
     }
 
 
@@ -63,8 +66,8 @@ public class DatabaseServer {
                     if (!databaseHelper.isConnected()) {
                         response.errorMsg = "Server connection to the database failed.";
                     }
-                    if(!response.success){
-                        response.errorMsg = "Password is incorrect";
+                    if (!response.success) {
+                        response.errorMsg = "Password is incorrect or Session in use";
                     }
 
                     server.sendToTCP(connection.getID(), response);

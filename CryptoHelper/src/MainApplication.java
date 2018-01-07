@@ -9,14 +9,13 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class Main extends Application {
-
+public class MainApplication extends Application {
+    public Stage mainStage;
     @Override
     public void start(Stage primaryStage) throws Exception{
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Client/Menus/fxml/LoginScreen.fxml"));
         AnchorPane anchorPane = loader.load();
-        MainViewController mainViewController = new MainViewController(primaryStage);
         LoginScreenController loginScreenController = loader.getController();
         loginScreenController.setDbClient(new DatabaseClient());
 
