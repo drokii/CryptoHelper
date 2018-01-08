@@ -15,9 +15,9 @@ public class NewsServer {
     private RSSFeedReader rssReader;
 
     private NewsServer() throws IOException {
-        Server server = new Server(1000000, 100000);
+        Server server = new Server(1000000, 1000000);
         NetworkNews.register(server);
-        server.bind(54567);
+        server.bind(54569);
         assignListeners(server);
 
         rssReader = new RSSFeedReader("https://www.coindesk.com/feed/");

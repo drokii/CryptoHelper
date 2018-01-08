@@ -1,7 +1,9 @@
 
+import Client.CoinClient;
 import Client.DatabaseClient;
 import Client.Menus.Controllers.LoginScreenController;
 import Client.Menus.Controllers.MainViewController;
+import Client.NewsClient;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,7 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class MainApplication extends Application {
-    public Stage mainStage;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
 

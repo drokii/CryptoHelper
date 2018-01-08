@@ -66,16 +66,13 @@
                   </JFXButton>
                </children>
                <HBox.margin>
-                  <Insets left="20.0" top="5.0" />
+                  <Insets left="20.0" right="20.0" top="5.0" />
                </HBox.margin>
             </VBox>
             <FlowPane fx:id="contentPane" prefHeight="800.0" prefWidth="980.0">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
-               <padding>
-                  <Insets bottom="25.0" left="50.0" right="25.0" top="25.0" />
-               </padding>
             </FlowPane>
          </children>
       </HBox>

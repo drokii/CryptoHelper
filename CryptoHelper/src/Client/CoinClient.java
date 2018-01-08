@@ -22,7 +22,7 @@ public class CoinClient {
 
     Client client;
 
-    private CoinClient() {
+    public CoinClient() {
         client = new Client(1000000,1000000);
         client.start();
         NetworkCoin.register(client);
@@ -44,9 +44,12 @@ public class CoinClient {
         client.addListener(new Listener.ThreadedListener(new Listener() {
             @Override
             public void connected(Connection connection) {
+                System.out.println("Client connected to Coin Server");
                 coinRetriever = ObjectSpace.getRemoteObject(connection, NetworkCoin.COINRETRIEVER, ICoinRetriever.class);
                 ((RemoteObject) coinRetriever).setNonBlocking(false);
                 coins = coinRetriever.getCoin();
+                System.out.println("Coins have been recieved.");
+
             }
 
             public void received(Connection connection, Object object) {
@@ -59,4 +62,6 @@ public class CoinClient {
         new CoinClient();
 
     }
+
+
 }

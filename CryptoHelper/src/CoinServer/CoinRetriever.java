@@ -37,7 +37,11 @@ public class CoinRetriever implements ICoinRetriever {
         Type listType = new TypeToken<List<Coin>>() {}.getType();
         this.setCoins(g.fromJson(json, listType));
 
-        if (this.getCoin() != null) {
+       if (this.getCoin() != null) {
+           for (Coin c: coins
+                  ) {
+               c.setProperties();
+            }
             System.out.println("API GET Request succesful");
         } else {
             System.out.println("Request failed. Check internet connection or API server status.");

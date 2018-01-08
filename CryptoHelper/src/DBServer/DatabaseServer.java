@@ -14,7 +14,7 @@ public class DatabaseServer {
     private DatabaseServer() throws IOException {
         Server server = new Server(1000000, 100000);
         register(server);
-        server.bind(54565);
+        server.bind(54568);
         assignListeners(server);
         databaseHelper = new DatabaseHelper();
         if (!databaseHelper.connect()) {

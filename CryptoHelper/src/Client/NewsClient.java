@@ -14,10 +14,17 @@ import java.util.List;
 
 public class NewsClient {
     INewsFeed newsFeed;
-    private List<NewsPiece> newsPieces = null;
+
+
+
+    private List<NewsPiece> newsPieces;
+
+    public List<NewsPiece> getNewsPieces() {
+        return newsPieces;
+    }
     private Client client;
 
-    private NewsClient() {
+    public NewsClient() {
         client = new Client(1000000,1000000);
         client.start();
         NetworkNews.register(client);
@@ -25,7 +32,7 @@ public class NewsClient {
         new Thread("connect") {
             public void run() {
                 try {
-                    client.connect(3000, "localhost", 54567);
+                    client.connect(3000, "localhost", 54569);
                     while (client.isConnected()) {
                         client.update(5000);
                     }

@@ -1,6 +1,10 @@
 package Client.Menus.Controllers;
 
+import Client.ClientContainer;
+import Client.CoinClient;
 import Client.DatabaseClient;
+import Client.NewsClient;
+import com.sun.deploy.util.SessionState;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +19,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutionException;
 
 public class LoginScreenController {
 
@@ -32,8 +36,8 @@ public class LoginScreenController {
 
     @FXML
     private void logInSubmit(ActionEvent actionEvent) throws InterruptedException, ExecutionException, IOException {
-        int i = dbClient.logIn(usertextfield.getText(),passwordtextfield.getText());
-        switch(i){
+        int i = dbClient.logIn(usertextfield.getText(), passwordtextfield.getText());
+        switch (i) {
             case 1:
                 try {
                     goodLoginProceed();
@@ -90,7 +94,7 @@ public class LoginScreenController {
 
     @FXML
     private void createAccount(ActionEvent actionEvent) throws IOException {
-        if(dbClient.getResponseStatus() !=2){
+        if (dbClient.getResponseStatus() != 2) {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Client/Menus/fxml/CreateAccountView.fxml"));
             AnchorPane anchorPane = loader.load();
             CreateAccountController createAccountController = loader.getController();
@@ -103,7 +107,7 @@ public class LoginScreenController {
             stage.setTitle("Create Account");
             stage.setScene(scene);
             stage.show();
-        }else{
+        } else {
             badConnectionDialog();
         }
 

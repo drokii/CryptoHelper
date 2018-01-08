@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 
 
-<FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<FlowPane fx:controller="Client.Menus.Controllers.PortfolioViewController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="980.0" style="-fx-background-color: white;">
          <children>
@@ -34,7 +34,7 @@
                 <TableColumn prefWidth="103.0" text="Coin" />
                 <TableColumn prefWidth="93.0" text="Amount" />
                   <TableColumn prefWidth="78.0" text="Value" />
-                  <TableColumn prefWidth="116.0" text="\% of Portfolio" />
+                  <TableColumn prefWidth="305.0" text="\% of Portfolio" />
               </columns>
                <padding>
                   <Insets left="200.0" right="200.0" />

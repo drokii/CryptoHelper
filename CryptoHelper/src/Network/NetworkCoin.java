@@ -5,6 +5,8 @@ import Shared.ICoinRetriever;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
 import com.esotericsoftware.kryonet.rmi.ObjectSpace;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 import java.util.ArrayList;
 
@@ -19,6 +21,8 @@ public class NetworkCoin {
         //Interfaces must be registered
         kryo.register(ICoinRetriever.class);
         //Object values must be registered
+        kryo.register(SimpleStringProperty.class);
+        kryo.register(SimpleDoubleProperty.class);
         kryo.register(int.class);
         kryo.register(double.class);
         kryo.register(String.class);

@@ -14,7 +14,7 @@ public class CoinServer {
     ObjectSpace objectSpace;
 
     private CoinServer() throws IOException {
-        Server server = new Server(1000000, 100000);
+        Server server = new Server(100000, 100000);
         NetworkCoin.register(server);
         server.bind(54565);
         assignListeners(server);
@@ -23,7 +23,6 @@ public class CoinServer {
         wallet = new CoinRetriever();
         objectSpace = new ObjectSpace();
         objectSpace.register(NetworkCoin.COINRETRIEVER, wallet);
-
 
         server.start();
 

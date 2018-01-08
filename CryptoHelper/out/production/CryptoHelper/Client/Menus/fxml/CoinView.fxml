@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Menus.Controllers.CoinViewController">
+   <children>
+      <VBox prefHeight="800.0" prefWidth="980.0" style="-fx-background-color: white;">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Coin Browser">
+               <VBox.margin>
+                  <Insets bottom="50.0" left="300.0" top="50.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="67.0" />
+               </font>
+            </Text>
+            <TableView fx:id="coinTable" prefHeight="583.0" prefWidth="905.0">
+              <columns>
+                <TableColumn fx:id="nameCol" prefWidth="122.0" text="Name" />
+                <TableColumn fx:id="highCol" prefWidth="107.0" text="High" />
+                  <TableColumn fx:id="lowCol" prefWidth="79.0" text="Low" />
+                  <TableColumn fx:id="volumeCol" prefWidth="94.0" text="Volume" />
+                  <TableColumn fx:id="bidCol" minWidth="4.0" prefWidth="77.0" text="Bid" />
+                  <TableColumn fx:id="askCol" prefWidth="85.0" text="Ask" />
+                  <TableColumn fx:id="openOrdersCol" prefWidth="256.0" text="Open Orders">
+                     <columns>
+                        <TableColumn fx:id="openSellCol" prefWidth="118.0" text="Sell" />
+                        <TableColumn fx:id="openBuyCol" prefWidth="118.0" text="Buy" />
+                     </columns>
+                  </TableColumn>
+                  <TableColumn fx:id="createdCol" minWidth="0.0" prefWidth="104.0" text="Date of Creation" />
+              </columns>
+               <VBox.margin>
+                  <Insets left="25.0" right="50.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="25.0" />
+               </padding>
+            </TableView>
+         </children>
+      </VBox>
+   </children>
+</FlowPane>
