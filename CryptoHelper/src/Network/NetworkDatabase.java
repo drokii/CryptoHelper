@@ -24,6 +24,7 @@ public class NetworkDatabase {
         kryo.register(CreateAccountResponse.class);
         kryo.register(LogInRequest.class);
         kryo.register(LogInResponse.class);
+        kryo.register(LogOutNotice.class);
 
     }
 
@@ -49,6 +50,7 @@ public class NetworkDatabase {
 
     public static class LogOutNotice{
         public String username;
+        public String password;
     }
 
     public static class SaveTransactionRequest {
