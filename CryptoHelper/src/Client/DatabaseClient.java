@@ -125,8 +125,6 @@ public class DatabaseClient {
                     responseStatus = 0;
                 } else {
                     Thread.sleep(300);
-
-
                 }
 
             }
