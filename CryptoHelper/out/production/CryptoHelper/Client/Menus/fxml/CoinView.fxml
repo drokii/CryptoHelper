@@ -28,7 +28,7 @@
                   <TableColumn fx:id="volumeCol" prefWidth="94.0" text="Volume" />
                   <TableColumn fx:id="bidCol" minWidth="4.0" prefWidth="77.0" text="Bid" />
                   <TableColumn fx:id="askCol" prefWidth="85.0" text="Ask" />
-                  <TableColumn fx:id="openOrdersCol" prefWidth="256.0" text="Open Orders">
+                  <TableColumn fx:id="openOrdersCol" prefWidth="256.0" text="Nr. of Open Orders">
                      <columns>
                         <TableColumn fx:id="openSellCol" prefWidth="118.0" text="Sell" />
                         <TableColumn fx:id="openBuyCol" prefWidth="118.0" text="Buy" />
@@ -39,9 +39,6 @@
                <VBox.margin>
                   <Insets left="25.0" right="50.0" />
                </VBox.margin>
-               <padding>
-                  <Insets bottom="25.0" />
-               </padding>
             </TableView>
          </children>
       </VBox>

@@ -63,7 +63,7 @@ public class Coin implements Serializable {
         this.openBuyOrdersProperty = new SimpleDoubleProperty(openBuyOrders);
         this.openSellOrdersProperty = new SimpleDoubleProperty(openSellOrders);
     }
-    
+
     public String getMarketNameProperty() {
         return marketNameProperty.get();
     }
