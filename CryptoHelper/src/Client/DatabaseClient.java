@@ -3,6 +3,7 @@ package Client;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import sun.rmi.runtime.Log;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
@@ -21,6 +22,9 @@ public class DatabaseClient {
     // 0 for not initialized, 1 for logged in, 2 for no internet, -1 for bad login
     private int responseStatus = 0;
 
+    public void setResponseStatus(int responseStatus) {
+        this.responseStatus = responseStatus;
+    }
     public int getResponseStatus() {
         return responseStatus;
     }
@@ -40,7 +44,7 @@ public class DatabaseClient {
         new Thread("connect") {
             public void run() {
                 try {
-                    client.connect(3000, "localhost", 54565);
+                    client.connect(3000, "localhost", 54568);
                     while (client.isConnected()) {
                         client.update(1000);
                     }
@@ -82,8 +86,9 @@ public class DatabaseClient {
                     }
 
                 }
-                if (object instanceof RemoveAccountResponse) {
-                    //todo: react to response
+                if (object instanceof LogOutNotice) {
+                    responseStatus = 1;
+                    // todo: add proper handling
                 }
                 if (object instanceof SaveTransactionResponse) {
                     //todo: react to response
@@ -111,6 +116,7 @@ public class DatabaseClient {
                 = new CompletableFuture<>();
 
         Executors.newCachedThreadPool().submit(() -> {
+
             while (!completableFuture.isDone()) {
                 System.out.println("Calculating...");
 
@@ -119,6 +125,7 @@ public class DatabaseClient {
                     responseStatus = 0;
                 } else {
                     Thread.sleep(300);
+
 
                 }
 
@@ -142,5 +149,14 @@ public class DatabaseClient {
         return i;
 
     }
+    public void logOut(String username, String password) throws InterruptedException, ExecutionException {
+
+        LogOutNotice logoutNotice = new LogOutNotice();
+        logoutNotice.username = username;
+        logoutNotice.password = password;
+        client.sendTCP(logoutNotice);
+
+    }
+
 
 }

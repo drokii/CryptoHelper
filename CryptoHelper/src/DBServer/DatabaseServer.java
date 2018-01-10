@@ -11,7 +11,7 @@ import static Network.NetworkDatabase.*;
 public class DatabaseServer {
     IDatabaseHelper databaseHelper;
 
-    private DatabaseServer() throws IOException {
+    public DatabaseServer() throws IOException {
         Server server = new Server(1000000, 100000);
         register(server);
         server.bind(54568);
@@ -73,8 +73,11 @@ public class DatabaseServer {
                     server.sendToTCP(connection.getID(), response);
 
                 }
-                if (object instanceof RemoveAccountRequest) {
-                    //todo:code to remove user account
+                if (object instanceof LogOutNotice) {
+                    System.out.println("Recieved log out packet");
+                    String name = ((LogOutNotice) object).username;
+                    String password = ((LogOutNotice) object).password;
+                    databaseHelper.logOutUser(name,password);
                 }
                 if (object instanceof SaveTransactionRequest) {
                     //todo: code to save a transaction

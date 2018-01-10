@@ -7,9 +7,14 @@ import java.sql.*;
 
 public class DatabaseHelper implements IDatabaseHelper {
 
-    final String CONNECTIONSTRING = "jdbc:mysql://localhost:3306/cryptohelper?user=root";
+    public void setConnectionString(String connectionString) {
+        this.connectionString = connectionString;
+    }
+
+    private String connectionString = "jdbc:mysql://localhost:3306/cryptohelper?user=root";
     private Connection conn;
     private boolean connected;
+
     @Override
     public boolean isConnected() {
         return connected;
@@ -22,7 +27,7 @@ public class DatabaseHelper implements IDatabaseHelper {
     @Override
     public boolean connect() {
         try {
-            conn = DriverManager.getConnection(CONNECTIONSTRING);
+            conn = DriverManager.getConnection(connectionString);
             if (conn != null) {
                 connected = true;
                 System.out.println("Connected to the database");
@@ -107,8 +112,12 @@ public class DatabaseHelper implements IDatabaseHelper {
     }
 
     @Override
-    public boolean deleteAccount(String username, String password) {
-        return false;
+    public void deleteAccount(String username, String password) throws SQLException {
+        Statement stmt = null;
+        String deleteQuery = "delete from account where username ='" + username + "' and password ='" + password + "';";
+        stmt = conn.createStatement();
+        stmt.executeUpdate(deleteQuery);
+
     }
 
 
