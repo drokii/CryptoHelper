@@ -20,6 +20,7 @@ public class CoinRetriever implements ICoinRetriever {
     }
 
     @SerializedName("result")
+
     private List<Coin> coins = null;
     @Override
     public List<Coin> getCoin() {
@@ -78,11 +79,7 @@ public class CoinRetriever implements ICoinRetriever {
 
     @Override
     public void refreshWallet() throws IOException {
-        coins = null;
-        String json = APICall("https://bittrex.com/api/v1.1/public/getmarketsummaries");
-
-        Gson g = new Gson();
-        this.setCoins(g.fromJson(json, ICoinRetriever.class).getCoin());
+        fillWallet();
     }
 }
 

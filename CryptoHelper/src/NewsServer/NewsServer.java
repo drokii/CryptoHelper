@@ -14,7 +14,7 @@ public class NewsServer {
     private NewsFeed feed;
     private RSSFeedReader rssReader;
 
-    private NewsServer() throws IOException {
+    public NewsServer() throws IOException {
         Server server = new Server(1000000, 1000000);
         NetworkNews.register(server);
         server.bind(54569);

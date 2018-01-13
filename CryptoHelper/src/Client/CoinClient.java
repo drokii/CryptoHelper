@@ -8,24 +8,33 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.rmi.ObjectSpace;
 import com.esotericsoftware.kryonet.rmi.RemoteObject;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Observer;
 
-public class CoinClient {
+import static Network.NetworkCoin.*;
 
-    ICoinRetriever coinRetriever;
-    private List<Coin> coins = null;
-    public List<Coin> getCoins() {
+public class CoinClient{
+
+    private ICoinRetriever coinRetriever;
+
+    public ObservableList<Coin> getCoins() {
         return coins;
     }
 
-    Client client;
+    public ObservableList<Coin> coins = null;
+    private Client client;
 
     public CoinClient() {
         client = new Client(1000000,1000000);
         client.start();
-        NetworkCoin.register(client);
+        register(client);
 
         new Thread("connect") {
             public void run () {
@@ -45,15 +54,18 @@ public class CoinClient {
             @Override
             public void connected(Connection connection) {
                 System.out.println("Client connected to Coin Server");
-                coinRetriever = ObjectSpace.getRemoteObject(connection, NetworkCoin.COINRETRIEVER, ICoinRetriever.class);
+                coinRetriever = ObjectSpace.getRemoteObject(connection, COINRETRIEVER, ICoinRetriever.class);
                 ((RemoteObject) coinRetriever).setNonBlocking(false);
-                coins = coinRetriever.getCoin();
+                coins = FXCollections.observableArrayList(coinRetriever.getCoin());
                 System.out.println("Coins have been recieved.");
 
             }
 
             public void received(Connection connection, Object object) {
-
+                if (object instanceof CoinListUpdate) {
+                    coins.setAll(coinRetriever.getCoin());
+                    notifyAll();
+                }
             }
         }));
 
@@ -62,6 +74,8 @@ public class CoinClient {
         new CoinClient();
 
     }
-
+    public void addCoinListener(ListChangeListener listener){
+        coins.addListener(listener);
+    }
 
 }

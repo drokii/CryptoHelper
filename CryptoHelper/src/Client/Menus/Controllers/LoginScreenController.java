@@ -49,12 +49,12 @@ public class LoginScreenController {
                 badPasswordDialog();
                 break;
             case 2:
-                //badConnectionDialog();
-                try {
-                    goodLoginProceed(); // testing goes faster like this bo
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                badConnectionDialog();
+//                try {
+//                    goodLoginProceed(); // testing goes faster like this bo
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
 
         }
     }

@@ -27,7 +27,7 @@ public class MainViewController {
         contentPane.getChildren().setAll(pane);
     }
 
-    public MainViewController() {
+    public MainViewController() throws ExecutionException, InterruptedException {
         CoinClient coinClient = new CoinClient();
         NewsClient newsClient = new NewsClient();
         this.clientContainer = new ClientContainer(coinClient, newsClient);
@@ -53,6 +53,13 @@ public class MainViewController {
 
     }
 
-    public void goToNews(ActionEvent actionEvent) {
+    public void goToNews(ActionEvent actionEvent) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Client/Menus/fxml/NewsView.fxml"));
+        FlowPane pane = loader.load();
+        NewsViewController newsViewController = loader.getController();
+        newsViewController.setClientContainer(clientContainer);
+
+        contentPane.getChildren().setAll(pane);
     }
 }

@@ -48,7 +48,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
                   </JFXButton>
-                  <JFXButton layoutX="68.0" layoutY="78.0" prefHeight="36.0" prefWidth="201.0" style="-fx-background-color: #efb134; -fx-border-width: 0.5; -fx-border-color: black;" text="Logout">
+                  <JFXButton fx:id="logoutBtn" layoutX="68.0" layoutY="78.0" prefHeight="36.0" prefWidth="201.0" style="-fx-background-color: #efb134; -fx-border-width: 0.5; -fx-border-color: black;" text="Logout">
                      <font>
                         <Font name="MT Extra" size="14.0" />
                      </font>
@@ -56,7 +56,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="350.0" />
                      </VBox.margin>
                   </JFXButton>
-                  <JFXButton layoutX="15.0" layoutY="329.0" prefHeight="34.0" prefWidth="209.0" style="-fx-background-color: #efb134; -fx-border-width: 0.5; -fx-border-color: black;" text="Exit">
+                  <JFXButton fx:id="ExitBtn" layoutX="15.0" layoutY="329.0" prefHeight="34.0" prefWidth="209.0" style="-fx-background-color: #efb134; -fx-border-width: 0.5; -fx-border-color: black;" text="Exit">
                      <font>
                         <Font name="MT Extra" size="14.0" />
                      </font>

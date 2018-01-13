@@ -15,8 +15,6 @@ import java.util.List;
 public class NewsClient {
     INewsFeed newsFeed;
 
-
-
     private List<NewsPiece> newsPieces;
 
     public List<NewsPiece> getNewsPieces() {

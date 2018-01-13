@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SonarLintProjectSettings">
+    <option name="additionalProperties">
+      <map>
+        <entry key="sonar.projectKey" value="Key123" />
+        <entry key="sonar.projectName" value="CryptoHelper" />
+      </map>
+    </option>
+    <option name="bindingEnabled" value="true" />
+    <option name="projectKey" value="Key123" />
+    <option name="serverId" value="locals" />
+  </component>
+</project>

@@ -6,25 +6,29 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import com.esotericsoftware.kryonet.rmi.ObjectSpace;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class CoinServer {
 
-    CoinRetriever wallet = null;
+    CoinRetriever coinRetriever = null;
     ObjectSpace objectSpace;
+    Server server;
 
     private CoinServer() throws IOException {
-        Server server = new Server(100000, 100000);
+        server = new Server(100000, 100000);
         NetworkCoin.register(server);
         server.bind(54565);
         assignListeners(server);
 
-        // Register remote wallet.
-        wallet = new CoinRetriever();
+        // Register remote coinRetriever.
+        coinRetriever = new CoinRetriever();
         objectSpace = new ObjectSpace();
-        objectSpace.register(NetworkCoin.COINRETRIEVER, wallet);
+        objectSpace.register(NetworkCoin.COINRETRIEVER, coinRetriever);
 
         server.start();
+        sendCoinUpdates(60*10^4).start();
 
     }
 
@@ -38,6 +42,7 @@ public class CoinServer {
             @Override
             public void connected(Connection connection) {
                 objectSpace.addConnection(connection);
+
                 System.out.println("A client is connected from: " + connection.getRemoteAddressTCP());
             }
 
@@ -56,5 +61,19 @@ public class CoinServer {
 
     }
 
+    private javax.swing.Timer sendCoinUpdates(int delay){
+        ActionListener taskPerformer = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                try {
+                    coinRetriever.refreshWallet();
+                    server.sendToAllTCP(new NetworkCoin.CoinListUpdate());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+       return new javax.swing.Timer(delay, taskPerformer);
+
+    }
 
 }

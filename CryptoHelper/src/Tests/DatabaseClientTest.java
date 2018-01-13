@@ -55,7 +55,7 @@ class DatabaseClientTest {
 
     @Test
     void createAccount() throws ExecutionException, InterruptedException {
-        assertEquals(1, dbc.createAccount("Tessadt", "Tefsast"));
+        assertEquals(true, dbc.createAccount("Tessadt", "Tefsast"));
     }
 
     @AfterEach

@@ -1,0 +1,6 @@
+projectKey=Key123
+serverUrl=http://localhost:9000
+serverVersion=6.7.1.35068
+dashboardUrl=http://localhost:9000/dashboard/index/Key123
+ceTaskId=AWDrosGlz-LTqXks7XwG
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AWDrosGlz-LTqXks7XwG

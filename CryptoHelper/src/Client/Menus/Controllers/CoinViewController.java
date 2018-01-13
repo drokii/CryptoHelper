@@ -2,6 +2,7 @@ package Client.Menus.Controllers;
 
 import Client.ClientContainer;
 import CoinServer.Coin;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -31,6 +32,18 @@ public class CoinViewController {
         this.clientContainer = clientContainer;
         coins = clientContainer.getCoins();
         coinTable.setItems(coins);
+
+        clientContainer.addListenerToCoinList(c -> {
+            try {
+                coins = clientContainer.getCoins();
+                coinTable.setItems(coins);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        });
+
     }
 
 

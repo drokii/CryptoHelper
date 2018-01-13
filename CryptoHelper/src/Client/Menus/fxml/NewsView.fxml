@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Menus.Controllers.NewsViewController">
+    <children>
+        <VBox alignment="TOP_CENTER" prefHeight="801.0" prefWidth="981.0">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="News in the Cryptocurrency World">
+                    <font>
+                        <Font size="55.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets top="25.0" />
+                    </VBox.margin>
+                </Text>
+            <Accordion fx:id="accordion">
+               <padding>
+                  <Insets left="25.0" right="50.0" top="50.0" />
+               </padding>
+            </Accordion>
+            </children>
+        </VBox>
+    </children>
+</FlowPane>
