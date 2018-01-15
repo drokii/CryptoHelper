@@ -62,14 +62,12 @@ public class CoinServer {
     }
 
     private javax.swing.Timer sendCoinUpdates(int delay){
-        ActionListener taskPerformer = new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                try {
-                    coinRetriever.refreshWallet();
-                    server.sendToAllTCP(new NetworkCoin.CoinListUpdate());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        ActionListener taskPerformer = evt -> {
+            try {
+                coinRetriever.refreshWallet();
+                server.sendToAllTCP(new NetworkCoin.CoinListUpdate());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         };
        return new javax.swing.Timer(delay, taskPerformer);

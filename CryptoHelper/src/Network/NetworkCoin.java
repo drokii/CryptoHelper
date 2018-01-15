@@ -28,6 +28,7 @@ public class NetworkCoin {
         kryo.register(String.class);
         kryo.register(ArrayList.class);
         kryo.register(Coin.class);
+        kryo.register(CoinListUpdate.class);
 
     }
     public static class CoinListUpdate {

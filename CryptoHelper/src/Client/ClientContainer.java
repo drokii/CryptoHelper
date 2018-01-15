@@ -36,10 +36,16 @@ public class ClientContainer{
 
         Future<ObservableList<Coin>> waitForResponse = waitForCoinList();
         coins = waitForResponse.get();
-        coinClient.addCoinListener(c -> {
-            coins = coinClient.getCoins();
-            notifyAll();
-        });
+
+
+            coinClient.addCoinListener(c -> {
+                synchronized (this) {
+                    coins = coinClient.getCoins();
+                    notifyAll();
+                }
+            });
+
+
 
     }
 

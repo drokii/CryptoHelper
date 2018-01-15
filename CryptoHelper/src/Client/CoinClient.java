@@ -63,8 +63,12 @@ public class CoinClient{
 
             public void received(Connection connection, Object object) {
                 if (object instanceof CoinListUpdate) {
-                    coins.setAll(coinRetriever.getCoin());
-                    notifyAll();
+                    synchronized (this){
+                        System.out.println("Coins recieved in client");
+                        coins.setAll(coinRetriever.getCoin());
+                        notifyAll();
+                    }
+
                 }
             }
         }));

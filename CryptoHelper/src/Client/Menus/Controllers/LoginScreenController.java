@@ -50,11 +50,11 @@ public class LoginScreenController {
                 break;
             case 2:
                 badConnectionDialog();
-//                try {
-//                    goodLoginProceed(); // testing goes faster like this bo
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    goodLoginProceed(); // testing goes faster like this bo
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
         }
     }
